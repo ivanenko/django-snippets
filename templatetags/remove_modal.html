@@ -1,0 +1,35 @@
+<div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="removeModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="removeModalLabel">Remove</h4>
+      </div>
+      <div class="modal-body">
+          <p id="modalBodyMessage"></p>
+            Are you sure you want to remove?
+      </div>
+      <div class="modal-footer">
+          <form id="removalForm" action="" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Delete</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#removeModal').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget); // Button that triggered the modal
+            var message = button.data('message'); // Extract info from data-* attributes
+            var action = button.data('url');
+            // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+            var modal = $(this);
+            modal.find('.modal-body #modalBodyMessage').html(message);
+            modal.find('.modal-footer #removalForm').attr("action", action);
+        })
+    });
+</script>
